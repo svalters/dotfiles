@@ -50,6 +50,12 @@ call plug#end()
 " -> Plug: NerdTree
 " ------------------------------------------------------------------------------
 
+" NerdTree options
+let NERDTreeAutoDeleteBuffer = 1  " Non valid buffer removal
+let NERDTreeShowBookmarks = 1     " Show bookmarks
+let NERDTreeQuitOnOpen = 1        " Quit NerdTree after opening file
+let NERDTreeShowHidden = 1        " Show hidden files/folders
+
 " Key mapping
 map <C-e> :NERDTreeToggle<CR>
 
@@ -59,6 +65,7 @@ map <C-e> :NERDTreeToggle<CR>
 
 " Solarized options
 let g:solarized_termcolors = 256  " Color range
+"let g:solarized_termtrans = 1     " Transparency
 
 " ------------------------------------------------------------------------------
 " -> Plug: Airline
