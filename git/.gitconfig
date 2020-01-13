@@ -10,7 +10,7 @@
 # ------------------------------------------------------------------------------
 
 [push]
-  default=current
+  default = current
 
 [core]
   editor = nvim
