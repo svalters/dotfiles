@@ -30,7 +30,6 @@ plugins=(
     nvm
 )
 
-
 # Source oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
