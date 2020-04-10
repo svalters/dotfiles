@@ -143,3 +143,8 @@ set hlsearch    " Highlight search results
 
 " Show matching brackets when text indicator is over them
 set showmatch
+
+" Save backup info in tmp
+set backupdir=/tmp//
+set directory=/tmp//
+set undodir=/tmp//
