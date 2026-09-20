@@ -3,18 +3,56 @@
 # ------------------------------------------------------------------------------
 
 [user]
-  name = valters
+  name = Valters
+  email = info@svalters.com
 
 # ------------------------------------------------------------------------------
 # -> Settings
 # ------------------------------------------------------------------------------
 
+[init]
+  defaultBranch = main
+
 [push]
-  default = current
+  default = simple
+  autoSetupRemote = true
+
+[pull]
+  rebase = true
+
+[rebase]
+  autoStash = true
 
 [core]
   editor = nvim
   excludesfile = ~/.gitignore
+
+[commit]
+  verbose = true
+
+[branch]
+  sort = -committerdate
+
+[rerere]
+  enabled = true
+
+# ------------------------------------------------------------------------------
+# -> Remotes
+# ------------------------------------------------------------------------------
+
+[url "git@github.com:"]
+  insteadOf = https://github.com/
+
+# ------------------------------------------------------------------------------
+# -> Diffs and merges
+# ------------------------------------------------------------------------------
+
+[diff]
+  algorithm = histogram
+  colorMoved = zebra
+
+[merge]
+  conflictStyle = zdiff3
 
 # ------------------------------------------------------------------------------
 # -> Colors

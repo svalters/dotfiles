@@ -1,0 +1,33 @@
+# ------------------------------------------------------------------------------
+# -> Notes
+# ------------------------------------------------------------------------------
+
+# On macOS Ghostty searches "$HOME/Library/Application Support/
+# com.mitchellh.ghostty/config" BEFORE this file, so that one has to be gone
+# for this config to take effect. See ghostty(5).
+#
+# Reference for every option and its default:
+#
+#   ghostty +show-config --default --docs
+
+# ------------------------------------------------------------------------------
+# -> Appearance
+# ------------------------------------------------------------------------------
+
+# Built-in theme, no themes directory required.
+theme = Nocturnal Winter
+
+# Translucent, blurred background.
+background-opacity = 0.75
+background-blur = 20
+
+# Breathing room around the grid.
+window-padding-x = 20
+window-padding-y = 20
+
+# ------------------------------------------------------------------------------
+# -> Keybinds
+# ------------------------------------------------------------------------------
+
+# Send a literal newline, for prompts that use it as "insert line".
+keybind = shift+enter=text:\n
