@@ -14,17 +14,18 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 ## Linking dotfiles with stow
 
 ```sh
-stow -t ~ ghostty git nvim zellij zsh
+stow -t ~ ghostty git nvim pi zellij zsh
 ```
 
 Stow refuses to link over existing regular files, so remove any of them first:
 
 ```sh
 rm ~/.config/zellij/config.kdl
+rm ~/.pi/agent/settings.json
 ```
 
 ## Unlinking dotfiles with stow
 
 ```sh
-stow -t ~ -D ghostty git nvim zellij zsh
+stow -t ~ -D ghostty git nvim pi zellij zsh
 ```
