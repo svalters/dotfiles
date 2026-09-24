@@ -15,7 +15,7 @@
 # ------------------------------------------------------------------------------
 
 # Built-in theme, no themes directory required.
-theme = Nocturnal Winter
+theme = Kanagawa Wave
 
 # Translucent, blurred background.
 background-opacity = 0.75
