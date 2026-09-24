@@ -48,3 +48,21 @@ set splitright
 
 " Prompt to save instead of failing when quitting with unsaved changes.
 set confirm
+
+" ------------------------------------------------------------------------------
+" -> Colors
+" ------------------------------------------------------------------------------
+
+augroup transparency
+  autocmd!
+  autocmd ColorScheme * highlight Normal guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight NormalNC guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight NormalFloat guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight SignColumn guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight LineNr guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight CursorLineNr guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight FoldColumn guibg=NONE ctermbg=NONE
+  autocmd ColorScheme * highlight EndOfBuffer guibg=NONE ctermbg=NONE
+augroup END
+
+silent! colorscheme habamax
