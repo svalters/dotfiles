@@ -65,8 +65,8 @@ function fish_right_prompt --description 'Muted git segment beside the prompt'
 end
 
 set -g __fish_git_prompt_showdirtystate 1
-set -g __fish_git_prompt_char_dirtystate '*'
-set -g __fish_git_prompt_char_stagedstate ''
+set -g __fish_git_prompt_char_dirtystate '-'
+set -g __fish_git_prompt_char_stagedstate '+'
 set -g __fish_git_prompt_char_stateseparator ''
 set -g __fish_git_prompt_char_untrackedfiles ''
 set -g __fish_git_prompt_color 727169
