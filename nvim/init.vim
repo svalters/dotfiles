@@ -39,6 +39,17 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m
 endif
 
+" Open files by fuzzy name with :find, walking the project via fd rather than
+" 'path'. Completion is fuzzy because matchfuzzy() ranks the candidates, which
+" plain file completion cannot do. :sfind and :tabfind get it too.
+if executable('fd')
+  function! FindFuzzy(cmdarg, cmdcomplete) abort
+    let l:files = systemlist('fd --type f --hidden --follow --exclude .git')
+    return empty(a:cmdarg) ? l:files : matchfuzzy(l:files, a:cmdarg)
+  endfunction
+  set findfunc=FindFuzzy
+endif
+
 " ------------------------------------------------------------------------------
 " -> Interface
 " ------------------------------------------------------------------------------
