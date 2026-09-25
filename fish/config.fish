@@ -18,19 +18,7 @@ set -g fish_greeting
 
 if status is-interactive
     command -q fnm && fnm env --shell fish | source
-    if command -q fzf
-        fzf --fish | source
-
-        bind --erase ctrl-t
-        bind --erase -M insert ctrl-t
-        bind alt-t fzf-file-widget
-        bind -M insert alt-t fzf-file-widget
-
-        bind --erase ctrl-r
-        bind --erase -M insert ctrl-r
-        bind alt-r fzf-history-widget
-        bind -M insert alt-r fzf-history-widget
-    end
+    command -q fzf && fzf --fish | source
 end
 
 # fd walks instead of find, so .gitignore is respected and node_modules never shows up in the picker.
@@ -38,6 +26,13 @@ if command -q fd
     set -gx FZF_DEFAULT_COMMAND 'fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
     set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
     set -gx FZF_ALT_C_COMMAND 'fd --type d --strip-cwd-prefix --hidden --follow --exclude .git'
+end
+
+if command -q bat
+    set -gx BAT_THEME ansi
+    set -gx MANPAGER "sh -c 'col -bx | bat --language man --plain'"
+    set -gx FZF_CTRL_T_OPTS "--preview 'bat --color=always --style=numbers --line-range=:200 {}' --bind ctrl-v:toggle-preview"
+    set -gx FZF_ALT_C_OPTS "--preview 'fd --max-depth 1 --color=always . {}' --bind ctrl-v:toggle-preview"
 end
 
 # ------------------------------------------------------------------------------

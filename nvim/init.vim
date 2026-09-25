@@ -32,6 +32,13 @@ set undofile
 set ignorecase
 set smartcase
 
+" Search file contents with ripgrep, which respects .gitignore, and send the hits
+" to the quickfix list: :grep pattern, then :copen.
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --smart-case
+  set grepformat=%f:%l:%c:%m
+endif
+
 " ------------------------------------------------------------------------------
 " -> Interface
 " ------------------------------------------------------------------------------
