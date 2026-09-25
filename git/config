@@ -25,6 +25,7 @@
 
 [core]
   editor = nvim
+  pager = env LESS='' delta --paging=always
 
 [commit]
   verbose = true
@@ -53,13 +54,9 @@
 [merge]
   conflictStyle = zdiff3
 
-# ------------------------------------------------------------------------------
-# -> Colors
-# ------------------------------------------------------------------------------
+[interactive]
+  diffFilter = delta --color-only
 
-[color]
-  ui = true
-
-[color "status"]
-  changed = green
-  added = yellow
+[delta]
+  line-numbers = true
+  navigate = true

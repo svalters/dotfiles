@@ -1,7 +1,7 @@
 ## Prerequisites
 
 ```sh
-brew install stow fish zellij fzf fd ripgrep bat
+brew install stow fish zellij fzf fd ripgrep bat git-delta
 brew install --cask ghostty
 ```
 

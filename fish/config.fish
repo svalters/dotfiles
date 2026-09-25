@@ -36,6 +36,25 @@ if command -q bat
 end
 
 # ------------------------------------------------------------------------------
+# -> Git
+# ------------------------------------------------------------------------------
+
+# Commit history in fzf with the full diff alongside. Prints the chosen sha, so it
+# composes: `git show (glog)`, `git revert (glog)`. Arguments go through to git log,
+# so `glog -- nvim` limits it to one path.
+function glog --description 'fzf over git log, delta previews the commit'
+    git log --color=always --date=short \
+        --format='%C(auto)%h %C(blue)%ad%C(auto)%d %s %C(dim)%an' $argv |
+        fzf --ansi --no-sort \
+            --preview 'git show --color=always {1} | delta --width=$FZF_PREVIEW_COLUMNS' |
+        read -l commit
+    and string split -f1 ' ' -- $commit
+end
+
+# Complete glog's arguments the way git log's are completed.
+complete -c glog -w 'git log'
+
+# ------------------------------------------------------------------------------
 # -> Prompt
 # ------------------------------------------------------------------------------
 
