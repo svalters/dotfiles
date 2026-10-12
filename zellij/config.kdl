@@ -1,0 +1,50 @@
+// ------------------------------------------------------------------------------
+// -> Appearance
+// ------------------------------------------------------------------------------
+
+// Built-in theme, no `themes` block required.
+theme "kanagawa"
+
+// No borders around panes.
+pane_frames false
+
+// ------------------------------------------------------------------------------
+// -> Startup
+// ------------------------------------------------------------------------------
+
+// No tips or release notes on launch.
+show_startup_tips false
+show_release_notes false
+
+// ------------------------------------------------------------------------------
+// -> Keys
+// ------------------------------------------------------------------------------
+
+// Start locked
+default_mode "locked"
+
+// Moving between panes and tabs, and opening a pane, stay one keystroke while locked.
+keybinds {
+    locked {
+        bind "Alt h" { MoveFocus "Left"; }
+        bind "Alt j" { MoveFocus "Down"; }
+        bind "Alt k" { MoveFocus "Up"; }
+        bind "Alt l" { MoveFocus "Right"; }
+        bind "Alt n" { NewPane; }
+        bind "Alt t" { NewTab; }
+        bind "Alt x" { CloseFocus; }
+        bind "Alt [" { GoToPreviousTab; }
+        bind "Alt ]" { GoToNextTab; }
+    }
+}
+
+// ------------------------------------------------------------------------------
+// -> Notes
+// ------------------------------------------------------------------------------
+
+// Everything not set here uses the zellij defaults, including every keybind in
+// the unlocked modes, so upgrades pick up new default bindings automatically.
+//
+// To see every available option with its default value:
+//
+//   zellij setup --dump-config

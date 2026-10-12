@@ -1,0 +1,122 @@
+# ------------------------------------------------------------------------------
+# -> Environment
+# ------------------------------------------------------------------------------
+
+export EDITOR=nvim
+export LANG=en_US.UTF-8
+
+export CLICOLOR=1
+export LESS=R
+
+# Skip ~/.lesshst history file
+export LESSHISTFILE=-
+
+# Unique entries only, so nested shells don't keep growing PATH.
+typeset -U path
+path=($HOME/bin $HOME/.local/bin $path)
+
+# ------------------------------------------------------------------------------
+# -> Options
+# ------------------------------------------------------------------------------
+
+# Emacs keys; zsh would pick vi mode on its own because EDITOR is nvim.
+bindkey -e
+
+# Up/Down walk history entries that start with everything typed so far.
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+
+setopt auto_cd
+setopt auto_pushd
+setopt no_beep
+setopt no_bang_hist
+
+HISTFILE=$HOME/.local/state/zsh/history
+[[ -d ${HISTFILE:h} ]] || mkdir -m 700 -p ${HISTFILE:h}
+setopt share_history hist_ignore_all_dups hist_ignore_space
+
+# ------------------------------------------------------------------------------
+# -> Completion
+# ------------------------------------------------------------------------------
+
+autoload -Uz compinit && compinit
+
+# Arrow-key menu; lowercase matches both cases.
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# ------------------------------------------------------------------------------
+# -> Tools
+# ------------------------------------------------------------------------------
+
+(( $+commands[fnm] )) && eval "$(fnm env --shell zsh)"
+(( $+commands[fzf] )) && source <(fzf --zsh)
+
+if (( $+commands[fd] )); then
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
+    export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+    export FZF_ALT_C_COMMAND='fd --type d --hidden --follow'
+    export FZF_ALT_C_OPTS="--preview 'fd --max-depth 1 --color=always . -- {}' --bind ctrl-v:toggle-preview"
+    _fzf_compgen_path() { fd --hidden --follow . "$1" }
+    _fzf_compgen_dir() { fd --type d --hidden --follow . "$1" }
+fi
+
+if (( $+commands[bat] )); then
+    export BAT_THEME=ansi
+    export MANPAGER="sh -c 'col -bx | bat --language man --plain'"
+    export FZF_CTRL_T_OPTS="--preview 'bat --color=always --plain --line-range=:200 -- {}' --bind ctrl-v:toggle-preview"
+fi
+
+# ------------------------------------------------------------------------------
+# -> Search
+# ------------------------------------------------------------------------------
+
+# ripgrep + fzf + bat + nvim
+rgf() {
+    rg --with-filename --line-number --column --color=always --smart-case --ignore-file ~/.config/fd/ignore "$@" |
+        fzf --ansi --exit-0 --delimiter : \
+            --preview 'bat --color=always --plain --highlight-line {2} -- {1}' \
+            --preview-window '+{2}-/2' \
+            --bind 'enter:become:case {2} in *[!0-9]*) exit 1;; esac; nvim +{2} -- {1}'
+}
+
+# ------------------------------------------------------------------------------
+# -> Git
+# ------------------------------------------------------------------------------
+
+# Commit history in fzf with the full diff alongside. Prints the chosen sha, so it
+# composes: `git show $(glog)`, `git revert $(glog)`. Arguments go through to git log,
+# so `glog -- nvim` limits it to one path.
+glog() {
+    git log --color=always --date=short \
+        --format='%C(auto)%h %C(blue)%ad%C(auto)%d %s %C(dim)%an' "$@" |
+        fzf --ansi --no-sort --accept-nth 1 \
+            --preview 'git show --color=always {1}'
+}
+
+# `git diff` as a file picker. Arguments go through to git diff, so
+# `gst --cached` and `gst main` match `git diff --cached` and `git diff main`.
+# Prints the chosen paths, so it composes: `nvim -- $(gst)`, `git add -- $(gst)`.
+# The `--` keeps a file named `+!cmd` or `-x` from acting as a command or option.
+gst() {
+    git diff --name-only --relative "$@" |
+        fzf --multi --preview "git diff --color=always --relative ${(j: :)${(q)@}} -- {}"
+}
+
+# ------------------------------------------------------------------------------
+# -> Prompt
+# ------------------------------------------------------------------------------
+
+# Git branch, plus the action during a rebase or merge.
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' formats '%b'
+zstyle ':vcs_info:git:*' actionformats '%b|%a'
+precmd_functions+=(vcs_info)
+
+setopt prompt_subst
+PROMPT='%F{#98bb6c}%2~%f %(?..%F{red})»%f '
+RPROMPT='%F{#727169}${vcs_info_msg_0_}%f'

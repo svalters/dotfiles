@@ -1,0 +1,32 @@
+# ------------------------------------------------------------------------------
+# -> Notes
+# ------------------------------------------------------------------------------
+
+# On macOS Ghostty also loads "$HOME/Library/Application Support/
+# com.mitchellh.ghostty/config" after this file, so options set there win.
+# See ghostty(5).
+#
+# Reference for every option and its default:
+#
+#   ghostty +show-config --default --docs
+
+# ------------------------------------------------------------------------------
+# -> Appearance
+# ------------------------------------------------------------------------------
+
+# Built-in theme, no themes directory required.
+theme = Kanagawa Wave
+
+# Translucent, blurred background.
+background-opacity = 0.75
+background-blur = 20
+
+# Breathing room around the grid.
+window-padding-x = 20
+window-padding-y = 20
+
+# ------------------------------------------------------------------------------
+# -> Keys
+# ------------------------------------------------------------------------------
+
+macos-option-as-alt = right

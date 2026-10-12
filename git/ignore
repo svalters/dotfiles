@@ -2,46 +2,50 @@
 # -> General
 # ------------------------------------------------------------------------------
 
-# Disable bell.
-set -g bell-action none
+*.log
 
 # ------------------------------------------------------------------------------
-# -> Mapping
+# -> Secrets
 # ------------------------------------------------------------------------------
 
-# Use C-a as new prefix.
-unbind-key C-b
-set-option -g prefix C-a
-bind-key C-a send-prefix
+.env
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+.netrc
 
 # ------------------------------------------------------------------------------
-# -> Windows & panes
+# -> Infrastructure
 # ------------------------------------------------------------------------------
 
-# Start counting at 1.
-set -g base-index 1
-
-# Renumber windows sequentially after closing any of them.
-set -g renumber-windows on
+*.tfstate
+*.tfstate.*
 
 # ------------------------------------------------------------------------------
-# -> Status line
+# -> macOS
 # ------------------------------------------------------------------------------
 
-# Left status.
-set -g status-left ''
-
-# Right status.
-set -g status-right ' #W#[fg=colour80] • %d %b %Y • %R • '
-
-# Status format.
-setw -g window-status-format ' ○ '
-setw -g window-status-current-format ' ● '
+.DS_Store
 
 # ------------------------------------------------------------------------------
-# -> Colors
+# -> Editor backups
 # ------------------------------------------------------------------------------
 
-# Status bar.
-setw -g status-bg default
-setw -g status-fg colour80
+*~
+
+# ------------------------------------------------------------------------------
+# -> Node
+# ------------------------------------------------------------------------------
+
+node_modules
+
+# ------------------------------------------------------------------------------
+# -> Editors
+# ------------------------------------------------------------------------------
+
+.vscode
+.idea
+TODO
