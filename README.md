@@ -1,7 +1,7 @@
 ## Prerequisites
 
 ```sh
-brew install stow neovim fnm zellij fzf fd ripgrep bat
+brew install stow git neovim fnm zellij fzf fd ripgrep bat
 brew install --cask ghostty
 ```
 
